@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), UserActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AfterLoginActivity.class);
                 startActivity(intent);
             }
         });

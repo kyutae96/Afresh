@@ -30,15 +30,15 @@ public class Running extends AppCompatActivity {
             running_image.setBackground(getDrawable(R.drawable.soso));
         }
 
-        Animation fadeout = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadeout);
-        running_image.startAnimation(fadeout);
+        Animation scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale);
+        running_image.startAnimation(scale);
 
         Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
                 startActivity(intent);
                 finish();
             }

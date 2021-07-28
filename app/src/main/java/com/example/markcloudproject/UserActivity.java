@@ -21,10 +21,12 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
         TextView tvNickname = findViewById(R.id.tvNickname);
         ImageView ivProfile = findViewById(R.id.ivProfile);
         TextView tvEmail = findViewById(R.id.tvEmail);
         TextView tvGender = findViewById(R.id.tvGender);
+
         Intent intent = getIntent();
         strNickname = intent.getStringExtra("name");
         strProfile = intent.getStringExtra("profile");

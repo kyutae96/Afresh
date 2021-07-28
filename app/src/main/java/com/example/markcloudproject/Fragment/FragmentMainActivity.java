@@ -4,7 +4,10 @@ package com.example.markcloudproject.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,12 +18,14 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.markcloudproject.CameraGuide;
+import com.example.markcloudproject.LoginActivity;
 import com.example.markcloudproject.MainActivity;
 import com.example.markcloudproject.R;
 
 import me.relex.circleindicator.CircleIndicator3;
 
 public class FragmentMainActivity extends FragmentActivity {
+
     private long backBtnTime = 0;
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
@@ -101,7 +106,15 @@ public class FragmentMainActivity extends FragmentActivity {
     }
 
     public void toMain(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
+
+    public void btnStart(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 }

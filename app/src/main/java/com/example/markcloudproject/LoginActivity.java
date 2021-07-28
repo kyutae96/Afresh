@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ShareCompat;
 
 import com.example.markcloudproject.Fragment.FragmentMainActivity;
 import com.kakao.auth.ApiErrorCode;
@@ -30,7 +31,7 @@ import com.kakao.util.exception.KakaoException;
 import java.security.MessageDigest;
 
 public class LoginActivity extends AppCompatActivity {
-
+    private long backBtnTime = 0;
     private SessionCallback sessionCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +59,8 @@ public class LoginActivity extends AppCompatActivity {
     private class SessionCallback implements ISessionCallback {
         @Override
         public void onSessionOpened() {
+            Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
+
             UserManagement.getInstance().me(new MeV2ResponseCallback() {
                 @Override
                 public void onFailure(ErrorResult errorResult) {
@@ -75,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onSessionClosed(ErrorResult errorResult) {
                     Toast.makeText(getApplicationContext(),"세션이 닫혔습니다. 다시 시도해 주세요: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
                 }
+
                 @Override
                 public void onSuccess(MeV2Response result) {
                     Toast.makeText(getApplicationContext(),"로그인 성공", Toast.LENGTH_SHORT).show();
@@ -93,6 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                     finish();
                 }
             });
+
         }
 
         @Override
@@ -115,4 +120,20 @@ public class LoginActivity extends AppCompatActivity {
             Log.e("name not found", e.toString());
         }
     }
+
+    @Override
+    public void onBackPressed() {
+        long curTime = System.currentTimeMillis();
+        long gapTime = curTime - backBtnTime;
+
+        if(0 <= gapTime && 2000 >= gapTime) {
+            super.onBackPressed();
+        }
+        else {
+            backBtnTime = curTime;
+            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+
+        }
+    }
+
 }
