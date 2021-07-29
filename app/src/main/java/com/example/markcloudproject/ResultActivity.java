@@ -19,17 +19,6 @@ public class ResultActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.result);
 
-        Button imageButton = (Button) findViewById(R.id.server_button);
-        imageButton.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ServerActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
         Intent intent = getIntent();
         String photoPath = intent.getStringExtra("strParamName");
 
@@ -47,5 +36,12 @@ public class ResultActivity extends Activity {
 
 
     }
+
+    public void server_button(View view){
+        Intent intent = new Intent(this, ServerActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
 }

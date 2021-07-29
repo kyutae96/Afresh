@@ -72,42 +72,17 @@ public class AfterLoginActivity extends AppCompatActivity {
         });
     }
 
-    public void btnNext(View view){
-        if (allPermissionsGranted()){
-            Toast.makeText(this, "권한 허용 완료!!!@_@", Toast.LENGTH_SHORT).show();
-            Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent1);
-            finish();
-        }else {
-            ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
-            Toast.makeText(this, "권한 허용이 필요합니다.", Toast.LENGTH_SHORT).show();
-
-        }
+    public void btnNext(View view) {
+        Toast.makeText(this, "음매~~", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, Main2Activity.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            if (allPermissionsGranted()) {
-                Intent intent = new Intent(this, MainActivity.class);
-                startActivity(intent);
-            } else {
-                Toast.makeText(this, "Permissions not granted by the user.", Toast.LENGTH_SHORT).show();
-            }
-            finish();
-        }
-    }
-
-    // 유틸 함수
-    private boolean allPermissionsGranted() {
-
-        for (String permission : REQUIRED_PERMISSIONS) {
-            if (ContextCompat.checkSelfPermission(this, permission) != PackageManager.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-        return true;
+    public void onBackPressed() {
+        Intent intent = new Intent(this, Main2Activity.class);
+        startActivity(intent);
+        finish();
     }
 }

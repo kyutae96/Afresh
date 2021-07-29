@@ -26,6 +26,7 @@ public class Running extends AppCompatActivity {
 
         running_image = findViewById(R.id.running_image);
 
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             running_image.setBackground(getDrawable(R.drawable.soso));
         }
@@ -44,4 +45,6 @@ public class Running extends AppCompatActivity {
             }
         },3500);
     }
+
+
 }

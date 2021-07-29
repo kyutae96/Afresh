@@ -3,9 +3,7 @@ package com.example.markcloudproject;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -19,12 +17,11 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.util.Base64;
-import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
@@ -43,13 +40,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity {
 
 
     private long backBtnTime = 0;
@@ -90,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
 
 
         textureView = (TextureView) findViewById(R.id.textureView);
@@ -104,6 +99,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void btn_share2(View view) {
+        Intent it3 = getIntent(); //파일명을 가져오기 위한 인텐트(에디트텍스트에서 이름입력받은 걸 파일명으로 쓰기 위해)
+        String str_name = it3.getStringExtra("it3_name"); //이름을 가져온다.
+        File fileRoute = null;
+        fileRoute = Environment.getExternalStorageDirectory(); //sdcard 파일경로 선언
+        File files = new File(fileRoute, "/temp/" + str_name + "-.jpeg"); //temp폴더에 이름으로 저장된 jpeg파일 경로 선언
+        if (files.exists() == true) //파일유무확인
+        {
+            Intent intentSend = new Intent(Intent.ACTION_SEND);
+            intentSend.setType("image/*"); //이름으로 저장된 파일의 경로를 넣어서 공유하기
+            intentSend.putExtra(Intent.EXTRA_STREAM, Uri.parse(fileRoute + "/temp/" + str_name + "-.jpeg"));
+            startActivity(Intent.createChooser(intentSend, "공유")); //공유하기 창 띄우기
+        } else { //파일이 없다면 저장을 해달라는 토스트메세지를 띄운다.
+            Toast.makeText(getApplicationContext(), "저장을 먼저 해주세요", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void btn_think2(View view) {
+        Toast.makeText(this, "아직 못했어여ㅠ", Toast.LENGTH_SHORT).show();
+    }
+
+    public void btn_save2(View view) {
+        Toast.makeText(this, "아직 못했어요 ㅠㅠ", Toast.LENGTH_SHORT).show();
+    }
+
+
     public void login_button(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
@@ -111,23 +132,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_guide(View view) {
-        Intent intent = new Intent(this, CameraGuide.class);
+        Intent intent = new Intent(this, CameraGuide2.class);
         startActivity(intent);
         finish();
     }
-
-    public void btn_think(View view) {
-        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
-    }
-
-    public void btn_save(View view) {
-        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
-    }
-
-    public void btn_share(View view) {
-        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
-    }
-
 
 
     @Override

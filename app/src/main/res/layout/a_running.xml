@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@drawable/grass">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
@@ -17,7 +18,7 @@
         android:id="@+id/running_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/soso"
+        android:src="@drawable/soso"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

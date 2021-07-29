@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         Session.getCurrentSession().addCallback(sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
         getAppKeyHash();
+
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -59,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
     private class SessionCallback implements ISessionCallback {
         @Override
         public void onSessionOpened() {
-            Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
 
             UserManagement.getInstance().me(new MeV2ResponseCallback() {
                 @Override
@@ -78,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                 public void onSessionClosed(ErrorResult errorResult) {
                     Toast.makeText(getApplicationContext(),"세션이 닫혔습니다. 다시 시도해 주세요: "+errorResult.getErrorMessage(),Toast.LENGTH_SHORT).show();
                 }
+
 
                 @Override
                 public void onSuccess(MeV2Response result) {
