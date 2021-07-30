@@ -3,7 +3,11 @@ package com.example.markcloudproject;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -17,11 +21,12 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
+import android.util.Base64;
+import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
 import android.view.Surface;
@@ -35,11 +40,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.markcloudproject.utils.ImgUtils;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.ByteBuffer;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,7 +62,7 @@ public class Main2Activity extends AppCompatActivity {
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
 
     // 뷰 객체
-    private Button button;
+    private Button btn_capture;
     private TextureView textureView;
 
     // 화면 각도 상수
@@ -89,7 +98,7 @@ public class Main2Activity extends AppCompatActivity {
 
 
         textureView = (TextureView) findViewById(R.id.textureView);
-        button = (Button) findViewById(R.id.btnCapture);
+        btn_capture = (Button) findViewById(R.id.btnCapture);
 
 
         if (allPermissionsGranted()) {
@@ -98,32 +107,6 @@ public class Main2Activity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
     }
-
-    public void btn_share2(View view) {
-        Intent it3 = getIntent(); //파일명을 가져오기 위한 인텐트(에디트텍스트에서 이름입력받은 걸 파일명으로 쓰기 위해)
-        String str_name = it3.getStringExtra("it3_name"); //이름을 가져온다.
-        File fileRoute = null;
-        fileRoute = Environment.getExternalStorageDirectory(); //sdcard 파일경로 선언
-        File files = new File(fileRoute, "/temp/" + str_name + "-.jpeg"); //temp폴더에 이름으로 저장된 jpeg파일 경로 선언
-        if (files.exists() == true) //파일유무확인
-        {
-            Intent intentSend = new Intent(Intent.ACTION_SEND);
-            intentSend.setType("image/*"); //이름으로 저장된 파일의 경로를 넣어서 공유하기
-            intentSend.putExtra(Intent.EXTRA_STREAM, Uri.parse(fileRoute + "/temp/" + str_name + "-.jpeg"));
-            startActivity(Intent.createChooser(intentSend, "공유")); //공유하기 창 띄우기
-        } else { //파일이 없다면 저장을 해달라는 토스트메세지를 띄운다.
-            Toast.makeText(getApplicationContext(), "저장을 먼저 해주세요", Toast.LENGTH_LONG).show();
-        }
-    }
-
-    public void btn_think2(View view) {
-        Toast.makeText(this, "아직 못했어여ㅠ", Toast.LENGTH_SHORT).show();
-    }
-
-    public void btn_save2(View view) {
-        Toast.makeText(this, "아직 못했어요 ㅠㅠ", Toast.LENGTH_SHORT).show();
-    }
-
 
     public void login_button(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
@@ -136,6 +119,19 @@ public class Main2Activity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+    public void btn_think2(View view) {
+        Toast.makeText(this, "곧 할 예정", Toast.LENGTH_SHORT).show();
+    }
+
+    public void btn_save2(View view) {
+        Toast.makeText(this, "음매~~~음매~~~~", Toast.LENGTH_SHORT).show();
+    }
+
+    public void btn_share2(View view) {
+        Toast.makeText(this, "곧 할 예정", Toast.LENGTH_SHORT).show();
+    }
+
 
 
     @Override
@@ -207,10 +203,11 @@ public class Main2Activity extends AppCompatActivity {
     private void startCamera() {
         textureView.setSurfaceTextureListener(textureListener);
 
-        button.setOnClickListener(new View.OnClickListener() {
+        btn_capture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
+                    Toast.makeText(Main2Activity.this, "사진은 갤러리에 저장했다", Toast.LENGTH_SHORT).show();
                     takePicture();
                 } catch (CameraAccessException e) {
                     e.printStackTrace();
@@ -275,26 +272,7 @@ public class Main2Activity extends AppCompatActivity {
 
         file = new File(Environment.getExternalStorageDirectory() + "/" + ts + ".jpg");
 
-        ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
-            @Override
-            public void onImageAvailable(ImageReader reader) {
-                Image image = null;
 
-                image = reader.acquireLatestImage();
-                ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-                byte[] bytes = new byte[buffer.capacity()];
-                buffer.get(bytes);
-                try {
-                    save(bytes);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (image != null) {
-                        image.close();
-                    }
-                }
-            }
-        };
 
         reader.setOnImageAvailableListener(readerListener, mBackgroundHandler);
 
@@ -327,6 +305,18 @@ public class Main2Activity extends AppCompatActivity {
         }, mBackgroundHandler);
 
     }
+
+    private ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
+        @Override
+        public void onImageAvailable(ImageReader reader) {
+            Image image = reader.acquireNextImage();
+            ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+            byte[] bytes = new byte[buffer.remaining()];
+            buffer.get(bytes);
+            final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            ImgUtils.saveImageToGallery(getApplicationContext(), bitmap);
+        }
+    };
 
     private void createCameraPreview() throws CameraAccessException {
         SurfaceTexture texture = textureView.getSurfaceTexture();

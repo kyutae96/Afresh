@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -37,6 +39,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import com.example.markcloudproject.utils.ImgUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_save(View view) {
-        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "음매~~~음매~~~~", Toast.LENGTH_SHORT).show();
     }
 
     public void btn_share(View view) {
@@ -202,12 +206,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                try {
-                    takePicture();
-                } catch (CameraAccessException e) {
-                    e.printStackTrace();
+                    Toast.makeText(MainActivity.this, "NOPE", Toast.LENGTH_SHORT).show();
                 }
-            }
         });
     }
 
@@ -230,95 +230,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void takePicture() throws CameraAccessException {
-        if (cameraDevice == null)
-            return;
 
-        CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-
-        CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraDevice.getId());
-        Size[] jpegSizes = null;
-
-        jpegSizes = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP).getOutputSizes(ImageFormat.JPEG);
-
-        int width = 640;
-        int height = 480;
-
-        if (jpegSizes != null && jpegSizes.length > 0) {
-            width = jpegSizes[0].getWidth();
-            height = jpegSizes[0].getHeight();
+    private ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
+        @Override
+        public void onImageAvailable(ImageReader reader) {
+            Image image = reader.acquireNextImage();
+            ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+            byte[] bytes = new byte[buffer.remaining()];
+            buffer.get(bytes);
+            final Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+            ImgUtils.saveImageToGallery(getApplicationContext(), bitmap);
         }
-
-        ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
-        List<Surface> outputSurfaces = new ArrayList<>(2);
-        outputSurfaces.add(reader.getSurface());
-
-        outputSurfaces.add(new Surface(textureView.getSurfaceTexture()));
-
-        final CaptureRequest.Builder captureBuilder = cameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
-        captureBuilder.addTarget(reader.getSurface());
-        captureBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
-
-        int rotation = getWindowManager().getDefaultDisplay().getRotation();
-        captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
-
-        Long tsLong = System.currentTimeMillis() / 1000;
-        String ts = tsLong.toString();
-
-        file = new File(Environment.getExternalStorageDirectory() + "/" + ts + ".jpg");
-
-        ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
-            @Override
-            public void onImageAvailable(ImageReader reader) {
-                Image image = null;
-
-                image = reader.acquireLatestImage();
-                ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-                byte[] bytes = new byte[buffer.capacity()];
-                buffer.get(bytes);
-                try {
-                    save(bytes);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (image != null) {
-                        image.close();
-                    }
-                }
-            }
-        };
-
-        reader.setOnImageAvailableListener(readerListener, mBackgroundHandler);
-
-        final CameraCaptureSession.CaptureCallback captureListener = new CameraCaptureSession.CaptureCallback() {
-            @Override
-            public void onCaptureCompleted(@NonNull CameraCaptureSession session, @NonNull CaptureRequest request, @NonNull TotalCaptureResult result) {
-                super.onCaptureCompleted(session, request, result);
-                try {
-                    createCameraPreview();
-                } catch (CameraAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-        };
-
-        cameraDevice.createCaptureSession(outputSurfaces, new CameraCaptureSession.StateCallback() {
-            @Override
-            public void onConfigured(@NonNull CameraCaptureSession session) {
-                try {
-                    session.capture(captureBuilder.build(), captureListener, mBackgroundHandler);
-                } catch (CameraAccessException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onConfigureFailed(@NonNull CameraCaptureSession session) {
-
-            }
-        }, mBackgroundHandler);
-
-    }
+    };
 
     private void createCameraPreview() throws CameraAccessException {
         SurfaceTexture texture = textureView.getSurfaceTexture();

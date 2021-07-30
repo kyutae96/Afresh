@@ -24,7 +24,7 @@ import me.relex.circleindicator.CircleIndicator3;
 public class FragmentMainActivity extends FragmentActivity {
 
     private int REQUEST_CODE_PERMISSIONS = 1001;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
+    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
 
     private long backBtnTime = 0;
     private ViewPager2 mPager;
