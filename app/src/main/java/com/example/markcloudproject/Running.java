@@ -26,25 +26,22 @@ public class Running extends AppCompatActivity {
 
         running_image = findViewById(R.id.running_image);
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            running_image.setBackground(getDrawable(R.drawable.soso));
+            running_image.setBackground(getDrawable(R.drawable.running));
         }
 
-        Animation scale = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.scale);
-        running_image.startAnimation(scale);
+        Animation fadeout = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fadeout);
+        running_image.startAnimation(fadeout);
 
         Handler handler = new Handler();
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(getApplicationContext(), FragmentMainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), AfterRunning.class);
                 startActivity(intent);
                 finish();
             }
-        },3500);
+        },2000);
     }
-
-
 }

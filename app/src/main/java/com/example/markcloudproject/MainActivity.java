@@ -41,6 +41,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.example.markcloudproject.utils.ImgUtils;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     private long backBtnTime = 0;
     // 권한 관련 변수 값
     private int REQUEST_CODE_PERMISSIONS = 1001;
-    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE"};
+    private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA", "android.permission.WRITE_EXTERNAL_STORAGE", "android.permission.READ_EXTERNAL_STORAGE"};
 
     // 뷰 객체
     private Button button;
@@ -121,15 +122,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btn_think(View view) {
-        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
+        FancyToast.makeText(this,"로그인 후 사용하세용",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
     }
 
     public void btn_save(View view) {
-        Toast.makeText(this, "음매~~~음매~~~~", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "음매~~~음매~~~~", Toast.LENGTH_SHORT).show();
+        FancyToast.makeText(this, "음매", FancyToast.LENGTH_LONG, FancyToast.WARNING, R.drawable.cutecow, false).show();
     }
 
     public void btn_share(View view) {
-        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
+        FancyToast.makeText(this,"로그인 후 사용하세용",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
+//        Toast.makeText(this, "로그인 후 사용하세용", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -206,7 +210,8 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                    Toast.makeText(MainActivity.this, "NOPE", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MainActivity.this, "NOPE", Toast.LENGTH_SHORT).show();
+                FancyToast.makeText(getApplicationContext(),"로그인 후 사용하세용",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
                 }
         });
     }
@@ -350,8 +355,8 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         } else {
             backBtnTime = curTime;
-            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
-
+//            Toast.makeText(this, "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            FancyToast.makeText(this,"한번 더 누르면 종료됩니다.",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
         }
     }
 

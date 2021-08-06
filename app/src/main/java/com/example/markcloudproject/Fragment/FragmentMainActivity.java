@@ -18,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.markcloudproject.MainActivity;
 import com.example.markcloudproject.R;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import me.relex.circleindicator.CircleIndicator3;
 
@@ -38,20 +39,15 @@ public class FragmentMainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment);
 
-
-        //ViewPager2
         mPager = findViewById(R.id.viewpager);
-        //Adapter
         pagerAdapter = new MyAdapter(this, num_page);
         mPager.setAdapter(pagerAdapter);
-        //Indicator
         mIndicator = findViewById(R.id.indicator);
         mIndicator.setViewPager(mPager);
         mIndicator.createIndicators(num_page,0);
-        //ViewPager Setting
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
-        mPager.setCurrentItem(3);
-        mPager.setOffscreenPageLimit(3);
+        mPager.setCurrentItem(1); //시작 지점
+        mPager.setOffscreenPageLimit(6); //최대 이미지 수
 
 
         mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -70,25 +66,6 @@ public class FragmentMainActivity extends FragmentActivity {
             }
 
         });
-
-        final float pageMargin= getResources().getDimensionPixelOffset(R.dimen.pageMargin);
-        final float pageOffset = getResources().getDimensionPixelOffset(R.dimen.offset);
-
-        mPager.setPageTransformer(new ViewPager2.PageTransformer() {
-            @Override
-            public void transformPage(@NonNull View page, float position) {
-                float myOffset = position * -(2 * pageOffset + pageMargin);
-                if (mPager.getOrientation() == ViewPager2.ORIENTATION_HORIZONTAL) {
-                    if (ViewCompat.getLayoutDirection(mPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
-                        page.setTranslationX(-myOffset);
-                    } else {
-                        page.setTranslationX(myOffset);
-                    }
-                } else {
-                    page.setTranslationY(myOffset);
-                }
-            }
-        });
     }
     @Override
     public void onBackPressed() {
@@ -100,7 +77,8 @@ public class FragmentMainActivity extends FragmentActivity {
         }
         else {
             backBtnTime = curTime;
-            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+            FancyToast.makeText(this,"한번 더 누르면 종료됩니다.",FancyToast.LENGTH_SHORT,FancyToast.WARNING,R.drawable.cutecow,false).show();
+//            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
 
         }
     }
@@ -114,7 +92,8 @@ public class FragmentMainActivity extends FragmentActivity {
 
     public void toMain(View view){
         if (allPermissionsGranted()){
-            Toast.makeText(this, "권한 허용 완료!!!@_@", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "권한 허용 완료!!!@_@", Toast.LENGTH_SHORT).show();
+            FancyToast.makeText(this,"권한 허용 완료!!",FancyToast.LENGTH_SHORT,FancyToast.WARNING,R.drawable.cutecow,false).show();
             Intent intent1 = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent1);
             finish();
