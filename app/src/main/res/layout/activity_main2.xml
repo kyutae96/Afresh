@@ -55,9 +55,49 @@
             app:layout_constraintStart_toStartOf="@+id/guideline37"
             app:layout_constraintTop_toTopOf="@+id/guideline36" />
 
+        <ImageView
+            android:id="@+id/logo_black"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/alife_logo_black"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline35"
+            app:layout_constraintEnd_toStartOf="@+id/guideline38"
+            app:layout_constraintStart_toStartOf="@+id/guideline37"
+            app:layout_constraintTop_toTopOf="@+id/guideline36" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/result_image"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#A6000000"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline81"
+            app:layout_constraintEnd_toStartOf="@+id/guideline82"
+            app:layout_constraintStart_toStartOf="@+id/guideline37"
+            app:layout_constraintTop_toTopOf="@+id/guideline73" />
+
+        <TextView
+            android:id="@+id/result_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/bold"
+            android:gravity="center"
+            android:text=" 촬영된 사진은 갤러리에 저장되었습니다. \n [판별해요] 버튼을 통해 결과를 확인할 수 있습니다!!"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline81"
+            app:layout_constraintEnd_toStartOf="@+id/guideline82"
+            app:layout_constraintStart_toStartOf="@+id/result_image"
+            app:layout_constraintTop_toTopOf="@+id/guideline73" />
+
+
+
+
+        <ImageView
+            android:id="@+id/camera_box"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
@@ -82,7 +122,7 @@
             android:layout_width="96dp"
             android:layout_height="45dp"
             android:alpha="0"
-            android:onClick="login_button"
+            android:onClick="user_button"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline14"
@@ -132,6 +172,20 @@
             app:layout_constraintGuide_percent="0.15" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline73"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.36" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline81"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.44" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline35"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -158,6 +212,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.08" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline82"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.92" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline38"

@@ -21,10 +21,13 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
+
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.File;
 import java.io.IOException;
@@ -42,7 +45,8 @@ public class Main2Activity extends AppCompatActivity {
     String cropImageDiretory;//크롭된 사진이 저장될 디렉토리
 
     private Uri photoUri;//촬영한, 크롭된 이미지 경로를 담는 변수
-    ImageView cropimg, main_layout_img;
+    ImageView cropimg, main_layout_img, logo_black, camera_box, result_image;
+    TextView result_text;
     CameraSurfaceView cameraView;
     FrameLayout previewFrame;
     boolean crop;   //크롭사진이 생성 되었는지 여부
@@ -65,6 +69,10 @@ public class Main2Activity extends AppCompatActivity {
     private void init() {
         cropImageDiretory = "/똥아지똥아지/";//크롭된 사진이 저장될 디렉토리
         cropimg = (ImageView) findViewById(R.id.cropimg);//크롭된 사진을 넣을 이미지 뷰
+        logo_black = (ImageView) findViewById(R.id.logo_black);
+        camera_box = (ImageView) findViewById(R.id.camera_box);
+        result_image = (ImageView) findViewById(R.id.result_image);
+        result_text = (TextView) findViewById(R.id.result_text);
         crop = false;
         usingCamera = Camera.CameraInfo.CAMERA_FACING_BACK;//후면 카메라가 기본.
 
@@ -128,6 +136,10 @@ public class Main2Activity extends AppCompatActivity {
 
                     //프레임 뷰에 보여지는 화면 바꾸기
                     cropimg.setVisibility(View.VISIBLE);
+                    logo_black.setVisibility(View.VISIBLE);
+                    result_image.setVisibility(View.VISIBLE);
+                    result_text.setVisibility(View.VISIBLE);
+                    camera_box.setVisibility(View.INVISIBLE);
                     cameraView.setVisibility(View.INVISIBLE);
 
                     // 아래 부분 주석을 풀 경우 사진 촬영 후에도 다시 프리뷰를 돌릴수 있음
@@ -175,9 +187,10 @@ public class Main2Activity extends AppCompatActivity {
             Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            Toast.makeText(this, "용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.", Toast.LENGTH_SHORT).show();
+            FancyToast.makeText(this,"용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
 
-            progressDialog.setMessage("용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다. \n 바로 결과 확인을 원하시면 아래 '앨범에서' 버튼을 눌러주세요!!");
+            progressDialog.setMessage("용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다. \n 바로 결과 확인을 원하시면 아래 '판별해요' 버튼을 눌러주세요!!");
             progressDialog.show();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -255,6 +268,10 @@ public class Main2Activity extends AppCompatActivity {
 
 
             cropimg.setVisibility(View.VISIBLE);
+            logo_black.setVisibility(View.VISIBLE);
+            result_image.setVisibility(View.VISIBLE);
+            result_text.setVisibility(View.VISIBLE);
+            camera_box.setVisibility(View.INVISIBLE);
             cameraView.setVisibility(View.INVISIBLE);
         }
     }
@@ -328,7 +345,7 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
-    public void gotoalbum(View view){
+    public void btn_think(View view){
         Intent intent = new Intent(this, Upload.class);
         startActivity(intent);
         finish();
@@ -336,6 +353,12 @@ public class Main2Activity extends AppCompatActivity {
 
     public void btn_guide2(View view){
         Intent intent = new Intent(this, CameraGuide2.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void user_button(View view){
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
@@ -354,7 +377,8 @@ public class Main2Activity extends AppCompatActivity {
         }
         else {
             backBtnTime = curTime;
-            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
+            FancyToast.makeText(this,"한번 더 누르면 종료됩니다.",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
 
         }
     }
