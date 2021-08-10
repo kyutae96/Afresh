@@ -24,11 +24,8 @@
         <activity android:name=".Fragment.FragmentMainActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".CameraGuide" />
-        <activity android:name=".ResultActivity" />
-        <activity android:name=".ServerActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".AfterLoginActivity" />
-        <activity android:name=".UserActivity" />
         <activity android:name=".CameraGuide2" />
         <activity android:name=".Upload"/>
         <activity android:name=".Main2Activity"/>

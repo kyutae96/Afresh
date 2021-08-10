@@ -15,7 +15,7 @@
         android:id="@+id/image"
         android:layout_width="373dp"
         android:layout_height="361dp"
-        android:background="@drawable/ic_launcher_background"
+        android:src="@drawable/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -5,13 +5,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.markcloudproject.Fragment.Fragment1;
-import com.example.markcloudproject.Fragment.Fragment2;
-import com.example.markcloudproject.Fragment.Fragment3;
-import com.example.markcloudproject.Fragment.Fragment4;
-import com.example.markcloudproject.Fragment.Fragment5;
-import com.example.markcloudproject.Fragment.Fragment6;
-
 public class MyAdapter extends FragmentStateAdapter {
 
     public int mCount;
@@ -30,14 +23,13 @@ public class MyAdapter extends FragmentStateAdapter {
         else if(index==1) return new Fragment2();
         else if(index==2) return new Fragment3();
         else if(index==3) return new Fragment4();
-        else if(index==4) return new Fragment5();
-        else return new Fragment6();
+        else return new Fragment5();
 
     }
 
     @Override
     public int getItemCount() {
-        return 6;
+        return 5;
     }
 
     public int getRealPosition(int position) { return position % mCount; }

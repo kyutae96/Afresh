@@ -1,5 +1,6 @@
 package com.example.markcloudproject;
 
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -41,17 +42,19 @@ public class Main2Activity extends AppCompatActivity {
     String cropImageDiretory;//크롭된 사진이 저장될 디렉토리
 
     private Uri photoUri;//촬영한, 크롭된 이미지 경로를 담는 변수
-    ImageView imageView;
+    ImageView cropimg, main_layout_img;
     CameraSurfaceView cameraView;
     FrameLayout previewFrame;
     boolean crop;   //크롭사진이 생성 되었는지 여부
     int usingCamera;//전면, 후면 중 어떤 카메라를 쓰고있는가 여부. Camera.CameraInfo.CAMERA_FACING_BACK, CAMERA_FACING_FRONT
-
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        progressDialog = new ProgressDialog(this);
 
         init();
     }
@@ -61,7 +64,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private void init() {
         cropImageDiretory = "/똥아지똥아지/";//크롭된 사진이 저장될 디렉토리
-        imageView = (ImageView) findViewById(R.id.cropimg);//크롭된 사진을 넣을 이미지 뷰
+        cropimg = (ImageView) findViewById(R.id.cropimg);//크롭된 사진을 넣을 이미지 뷰
         crop = false;
         usingCamera = Camera.CameraInfo.CAMERA_FACING_BACK;//후면 카메라가 기본.
 
@@ -102,7 +105,7 @@ public class Main2Activity extends AppCompatActivity {
 
                     //사진 원본 파일. 갤러리에서 보이며 /내장메모리/Pictures 에 저장.
                     img_name = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());   //이미지의 이름을 설정
-                    String outUriStr = MediaStore.Images.Media.insertImage(getContentResolver(),//이미지 파일 생성
+                    String outUriStr = MediaStore.Images.Media.insertImage(getContentResolver(), //이미지 파일 생성
                             bitmap, img_name, "Captured Image using Camera.");
 
                     if (outUriStr == null) {
@@ -124,7 +127,7 @@ public class Main2Activity extends AppCompatActivity {
                             });
 
                     //프레임 뷰에 보여지는 화면 바꾸기
-                    imageView.setVisibility(View.VISIBLE);
+                    cropimg.setVisibility(View.VISIBLE);
                     cameraView.setVisibility(View.INVISIBLE);
 
                     // 아래 부분 주석을 풀 경우 사진 촬영 후에도 다시 프리뷰를 돌릴수 있음
@@ -173,6 +176,9 @@ public class Main2Activity extends AppCompatActivity {
             return;
         } else {
             Toast.makeText(this, "용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.", Toast.LENGTH_SHORT).show();
+
+            progressDialog.setMessage("용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다. \n 바로 결과 확인을 원하시면 아래 '앨범에서' 버튼을 눌러주세요!!");
+            progressDialog.show();
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -230,7 +236,11 @@ public class Main2Activity extends AppCompatActivity {
 
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
+
             Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, Main2Activity.class);
+            startActivity(intent);
+            finish();
             return;
         }
         if (requestCode == PICK_FROM_ALBUM) {//앨범에서 사진 가져오기
@@ -240,10 +250,11 @@ public class Main2Activity extends AppCompatActivity {
             photoUri = data.getData();
             cropImage();
         } else if (requestCode == CROP_FROM_IMAGE) {//크롭
-            imageView.setImageURI(null);//초기화? 필요한 이유를 모르겠다
-            imageView.setImageURI(photoUri);//이 photoUri가 크롭된 이미지 파일의 경로
+            cropimg.setImageURI(null);//초기화? 필요한 이유를 모르겠다
+            cropimg.setImageURI(photoUri);//이 photoUri가 크롭된 이미지 파일의 경로
 
-            imageView.setVisibility(View.VISIBLE);
+
+            cropimg.setVisibility(View.VISIBLE);
             cameraView.setVisibility(View.INVISIBLE);
         }
     }
@@ -314,6 +325,7 @@ public class Main2Activity extends AppCompatActivity {
             }
         }
 
+
     }
 
     public void gotoalbum(View view){
@@ -322,14 +334,23 @@ public class Main2Activity extends AppCompatActivity {
         finish();
     }
 
+    public void btn_guide2(View view){
+        Intent intent = new Intent(this, CameraGuide2.class);
+        startActivity(intent);
+        finish();
+    }
+
+
 
     @Override
     public void onBackPressed() {
         long curTime = System.currentTimeMillis();
         long gapTime = curTime - backBtnTime;
 
+
         if(0 <= gapTime && 2000 >= gapTime) {
             super.onBackPressed();
+
         }
         else {
             backBtnTime = curTime;

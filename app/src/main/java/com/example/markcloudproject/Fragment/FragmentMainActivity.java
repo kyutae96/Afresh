@@ -30,7 +30,7 @@ public class FragmentMainActivity extends FragmentActivity {
     private long backBtnTime = 0;
     private ViewPager2 mPager;
     private FragmentStateAdapter pagerAdapter;
-    private int num_page = 6;
+    private int num_page = 5;
     private CircleIndicator3 mIndicator;
     private Button button;
 
@@ -47,7 +47,7 @@ public class FragmentMainActivity extends FragmentActivity {
         mIndicator.createIndicators(num_page,0);
         mPager.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         mPager.setCurrentItem(1); //시작 지점
-        mPager.setOffscreenPageLimit(6); //최대 이미지 수
+        mPager.setOffscreenPageLimit(5); //최대 이미지 수
 
 
         mPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

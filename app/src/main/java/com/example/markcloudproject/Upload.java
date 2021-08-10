@@ -71,7 +71,7 @@ public class Upload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressDialog = new ProgressDialog(Upload.this);
-                progressDialog.setMessage("Uploading, please wait...");
+                progressDialog.setMessage("결과가 나오고있습니다. 잠시만요.");
                 progressDialog.show();
 
                 //converting image to base64 string

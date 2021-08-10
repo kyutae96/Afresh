@@ -171,36 +171,39 @@
         android:id="@+id/imageView2"
         android:layout_width="240dp"
         android:layout_height="194dp"
+        android:src="@drawable/cowmeat"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/ivProfile"
         app:layout_constraintVertical_bias="0.92"
-        app:srcCompat="@drawable/cowmeat" />
+        />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="100dp"
         android:layout_height="100dp"
+        android:src="@drawable/startcow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.87"
-        app:srcCompat="@drawable/startcow" />
+         />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="127dp"
         android:layout_height="138dp"
+        android:src="@drawable/outcow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1"
         app:layout_constraintStart_toStartOf="@+id/guideline27"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.9"
-        app:srcCompat="@drawable/outcow" />
+         />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

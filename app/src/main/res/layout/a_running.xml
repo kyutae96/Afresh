@@ -11,6 +11,8 @@
     <ImageView
         android:id="@+id/running_image"
         android:layout_width="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/running"
         android:layout_height="match_parent"/>
 
 
