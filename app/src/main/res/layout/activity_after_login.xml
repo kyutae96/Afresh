@@ -150,6 +150,7 @@
         android:fontFamily="@font/light"
         android:text="..."
         android:textSize="16sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline23"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/guideline17" />
@@ -189,6 +190,7 @@
         android:fontFamily="@font/light"
         android:text="..."
         android:textSize="16sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintStart_toStartOf="@+id/tvNickname"
         app:layout_constraintTop_toTopOf="@+id/guideline23" />

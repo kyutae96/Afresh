@@ -14,7 +14,6 @@ import com.example.markcloudproject.Fragment.Fragment1;
 import com.example.markcloudproject.Fragment.FragmentMainActivity;
 
 public class CameraGuide extends AppCompatActivity {
-
     Button button;
     ImageView imageView;
     @Override

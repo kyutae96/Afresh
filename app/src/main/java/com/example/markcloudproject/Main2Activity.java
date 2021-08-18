@@ -67,7 +67,7 @@ public class Main2Activity extends AppCompatActivity {
 
 
     private void init() {
-        cropImageDiretory = "/똥아지똥아지/";//크롭된 사진이 저장될 디렉토리
+        cropImageDiretory = "/ALIFE/";//크롭된 사진이 저장될 디렉토리
         cropimg = (ImageView) findViewById(R.id.cropimg);//크롭된 사진을 넣을 이미지 뷰
         logo_black = (ImageView) findViewById(R.id.logo_black);
         camera_box = (ImageView) findViewById(R.id.camera_box);

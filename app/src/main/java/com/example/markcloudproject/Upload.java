@@ -2,7 +2,9 @@ package com.example.markcloudproject;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -23,10 +25,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.shashank.sony.fancytoastlib.FancyToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
@@ -37,10 +41,11 @@ public class Upload extends AppCompatActivity {
     private TextView name_text;
     private String img_class;
     private String img_name;
+    private String img_result;
     ImageView image;
     Button choose, upload;
     int PICK_IMAGE_REQUEST = 111;
-    String URL ="http://192.168.0.13:5000/image";
+    String URL = "http://192.168.0.13:5000/image";
     Bitmap bitmap;
     ProgressDialog progressDialog;
 
@@ -49,12 +54,14 @@ public class Upload extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_upload);
 
-        image = (ImageView)findViewById(R.id.image);
-        choose = (Button)findViewById(R.id.choose);
-        upload = (Button)findViewById(R.id.upload);
+        image = (ImageView) findViewById(R.id.image);
+        choose = (Button) findViewById(R.id.choose);
+        upload = (Button) findViewById(R.id.upload);
         class_text = findViewById(R.id.class_text);
         name_text = findViewById(R.id.name_text);
 
+
+        Bitmap bm = BitmapFactory.decodeStream(null);
 
         //opening image chooser option
         choose.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +78,7 @@ public class Upload extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 progressDialog = new ProgressDialog(Upload.this);
-                progressDialog.setMessage("결과가 나오고있습니다. 잠시만요.");
+                progressDialog.setMessage("결과가 나오고있습니다. 잠시만 기다려주세요.");
                 progressDialog.show();
 
                 //converting image to base64 string
@@ -85,29 +92,39 @@ public class Upload extends AppCompatActivity {
                 JSONObject jsonObj = new JSONObject(params);
 
                 //sending image to server
-                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>(){
+                StringRequest request = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         Log.d(TAG, "녕안");
-                        try{
+                        try {
                             JSONObject jsonObj = new JSONObject(response);
-                            img_class = jsonObj.getString("img_class");
-                            img_name = jsonObj.getString("img_name");
+                            img_class = jsonObj.getString("beef_part");
+                            img_name = jsonObj.getString("percent");
+                            byte[] byteArray =  Base64.decode(jsonObj.getString("result_image"), Base64.DEFAULT) ;
+                            System.out.println("byte[]:"+byteArray);
+                            Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+
+                            image.setImageBitmap(bm);
                             class_text.setText(img_class);
                             name_text.setText(img_name);
-                            Log.d(TAG, "안녕" + img_class + img_name);
-                        } catch (JSONException e){
+                            Log.d(TAG, "안녕" + img_class + img_name + img_result);
+                        } catch (JSONException e) {
                             Log.d(TAG, "안녕에러" + e);
                             e.printStackTrace();
                         }
                         Log.d(TAG, "test");
                         //textView.setText(response);
-                        Toast.makeText(Upload.this, "성공", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(Upload.this, "성공", Toast.LENGTH_SHORT).show();
+                        FancyToast.makeText(getApplicationContext(), "완료", FancyToast.LENGTH_SHORT, FancyToast.INFO, R.drawable.cutecow, false).show();
+                        progressDialog.dismiss();
+
                     }
-                },new Response.ErrorListener(){
+                }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        Toast.makeText(Upload.this, "Some error occurred -> "+volleyError, Toast.LENGTH_LONG).show();;
+                        Toast.makeText(Upload.this, "서버 연결에 실패했습니다.", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(getApplicationContext(), Upload.class);
+                        startActivity(intent);
                     }
                 }) {
                     //adding parameters to send
@@ -121,7 +138,9 @@ public class Upload extends AppCompatActivity {
                 request.setTag(TAG);
                 RequestQueue rQueue = Volley.newRequestQueue(Upload.this);
                 rQueue.add(request);
+
             }
+
         });
     }
 
