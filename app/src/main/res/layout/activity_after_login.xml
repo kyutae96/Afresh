@@ -202,11 +202,11 @@
         android:layout_height="0dp"
         android:alpha="0"
         app:layout_constraintBottom_toTopOf="@+id/guideline67"
-        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
         app:layout_constraintHorizontal_bias="0.95"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline27"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
         app:layout_constraintTop_toTopOf="@+id/guideline68"
         app:layout_constraintVertical_bias="0.86" />
 
@@ -217,36 +217,8 @@
         android:alpha="0"
         android:onClick="btnNext"
         app:layout_constraintBottom_toTopOf="@+id/guideline67"
-        app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline68"
-        app:layout_constraintVertical_bias="0.86" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/img_login"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline67"
-        app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline68"
-        app:layout_constraintVertical_bias="0.86" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/img_logout"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline67"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
-        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintHorizontal_bias="0.05"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline27"
@@ -257,11 +229,67 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scaleType="fitCenter"
-        android:src="@drawable/alife_logo_black"
-        app:layout_constraintBottom_toTopOf="@+id/guideline35"
-        app:layout_constraintEnd_toStartOf="@+id/guideline38"
-        app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline36" />
+        android:src="@drawable/img_login"
+        app:layout_constraintBottom_toTopOf="@+id/guideline67"
+        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline27"
+        app:layout_constraintTop_toTopOf="@+id/guideline68"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/img_logout"
+        app:layout_constraintBottom_toTopOf="@+id/guideline67"
+        app:layout_constraintEnd_toStartOf="@+id/guideline24"
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline16"
+        app:layout_constraintTop_toTopOf="@+id/guideline68"
+        app:layout_constraintVertical_bias="0.86" />
+
+    <ImageView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/a_fresh"
+        app:layout_constraintBottom_toTopOf="@+id/qwer"
+        app:layout_constraintEnd_toStartOf="@+id/rewq"
+        app:layout_constraintStart_toStartOf="@+id/er"
+        app:layout_constraintTop_toTopOf="@+id/wer" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/qwer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.13" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/wer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/er"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/rewq"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.21" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline35"

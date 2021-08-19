@@ -24,15 +24,42 @@
             app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
-            android:id="@+id/imageView"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/alife_logo_black"
-            app:layout_constraintBottom_toTopOf="@+id/guideline35"
-            app:layout_constraintEnd_toStartOf="@+id/guideline38"
-            app:layout_constraintStart_toStartOf="@+id/guideline37"
-            app:layout_constraintTop_toTopOf="@+id/guideline36" />
+            android:src="@drawable/a_fresh"
+            app:layout_constraintBottom_toTopOf="@+id/qwer"
+            app:layout_constraintEnd_toStartOf="@+id/rewq"
+            app:layout_constraintStart_toStartOf="@+id/er"
+            app:layout_constraintTop_toTopOf="@+id/wer" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/qwer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.13" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/wer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/er"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.04" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/rewq"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.21" />
 
         <TextView
             android:id="@+id/textView6"

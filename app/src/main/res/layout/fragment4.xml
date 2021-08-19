@@ -26,7 +26,7 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/alife_logo_black"
+            android:src="@drawable/a_fresh"
             app:layout_constraintBottom_toTopOf="@+id/guideline35"
             app:layout_constraintEnd_toStartOf="@+id/guideline38"
             app:layout_constraintStart_toStartOf="@+id/guideline37"
@@ -37,27 +37,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.12" />
+            app:layout_constraintGuide_percent="0.13" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline36"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.06" />
+            app:layout_constraintGuide_percent="0.04" />
+
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline37"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.08" />
+            app:layout_constraintGuide_percent="0.04" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline38"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.27" />
+            app:layout_constraintGuide_percent="0.21" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
