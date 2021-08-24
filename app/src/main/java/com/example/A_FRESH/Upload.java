@@ -45,7 +45,7 @@ public class Upload extends AppCompatActivity {
     ImageView image;
     Button choose, upload;
     int PICK_IMAGE_REQUEST = 111;
-    String URL = "http://192.168.0.13:5000/image";
+    String URL = "http://52.78.70.39:5000/image";
     Bitmap bitmap;
     ProgressDialog progressDialog;
 
