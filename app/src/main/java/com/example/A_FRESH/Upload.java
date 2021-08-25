@@ -87,6 +87,8 @@ public class Upload extends AppCompatActivity {
                 byte[] imageBytes = baos.toByteArray();
                 final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
 
+
+
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("image", imageString);
                 JSONObject jsonObj = new JSONObject(params);
