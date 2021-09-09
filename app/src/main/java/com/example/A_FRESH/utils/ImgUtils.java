@@ -14,7 +14,7 @@ public class ImgUtils {
 
     public static boolean saveImageToGallery(Context context, Bitmap bmp) {
 
-        String storePath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/송아지 송아지 얼룩송아지";
+        String storePath = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES) + "/AFRESH";
 
         //2021-07-30 위에 줄 api버전문제때문에 작동안함 확인 해야됨!!!!!!!!!!!!!!!!
 

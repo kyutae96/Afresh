@@ -98,7 +98,7 @@ public class Main2Activity extends AppCompatActivity {
                 try {
                     Bitmap bitmaporigin = BitmapFactory.decodeByteArray(data, 0, data.length);//원본 비트맵 파일. 왠지 90도 돌아가 있다
 
-                    //왠지 90도 돌아가서 찍힘. 되돌려놓기. 전면 카메라의 경우 좌우반전(진짜 왤까)
+                    //왠지 90도 돌아가서 찍힘. 되돌려놓기. 전면 카메라의 경우 좌우반전
                     Matrix matrix = new Matrix();
                     if (usingCamera == Camera.CameraInfo.CAMERA_FACING_FRONT) {
                         float[] mirrorY = {

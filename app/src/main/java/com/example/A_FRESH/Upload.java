@@ -172,10 +172,10 @@ public class Upload extends AppCompatActivity {
             Uri filePath = data.getData();
 
             try {
-                //getting image from gallery
+                //갤러리에서 이미지 가져옴
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
-                //Setting image to ImageView
+                //이미지뷰에 이미지 세팅
                 image.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
