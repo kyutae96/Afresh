@@ -27,6 +27,7 @@
         android:backgroundTint="@color/black"
         android:onClick="btn_tutorialcl"
         android:text="튜터리얼 시작"
+        android:textColor="@color/white"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline64"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
