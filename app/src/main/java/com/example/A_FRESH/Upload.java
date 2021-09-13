@@ -26,6 +26,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import org.json.JSONException;
@@ -42,6 +43,8 @@ public class Upload extends AppCompatActivity {
     private String img_class;
     private String img_name;
     private String img_result;
+    private Uri photoUri;
+    private static final int CROP_FROM_IMAGE = 2;
     ImageView image;
     Button choose, upload;
     int PICK_IMAGE_REQUEST = 111;
@@ -106,7 +109,8 @@ public class Upload extends AppCompatActivity {
                             System.out.println("byte[]:" + byteArray);
                             Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
 
-                            image.setImageBitmap(bm);
+//                            image.setImageBitmap(bm);
+                            Glide.with(getApplicationContext()).load(bm).into(image);
                             class_text.setText(img_class);
                             name_text.setText(img_name);
 
@@ -176,12 +180,14 @@ public class Upload extends AppCompatActivity {
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
                 //이미지뷰에 이미지 세팅
-                image.setImageBitmap(bitmap);
+                Glide.with(getApplicationContext()).load(bitmap).into(image);
+//                image.setImageBitmap(bitmap);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
+
 
 
     @Override

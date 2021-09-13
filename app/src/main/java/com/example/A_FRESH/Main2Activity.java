@@ -29,6 +29,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.File;
@@ -201,7 +202,12 @@ public class Main2Activity extends AppCompatActivity {
         cropIntent.putExtra("aspectY", 1); // crop 박스의 y축 비율
         cropIntent.putExtra("scale", true);
         cropIntent.putExtra("output", photoUri); // 크랍된 이미지를 해당 경로에 저장
+        cropIntent.putExtra("return-data", false);
+        cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        cropIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//        cropIntent.putExtra("outputFormat", Glide.with(this).load(photoUri).override(100).toString());
         startActivityForResult(cropIntent, CROP_FROM_IMAGE);
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 //            this.grantUriPermission("com.android.camera", photoUri,
 //                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -292,6 +298,7 @@ public class Main2Activity extends AppCompatActivity {
             if (data == null) {
                 return;
             }
+//            Glide.with(this).asBitmap().load(data).override(200,200).into(cropimg);
             photoUri = data.getData();
             cropImage();
         } else if (requestCode == CROP_FROM_IMAGE) {//크롭
