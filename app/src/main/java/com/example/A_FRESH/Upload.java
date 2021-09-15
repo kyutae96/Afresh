@@ -155,6 +155,8 @@ public class Upload extends AppCompatActivity {
 
                             }
 
+                            progressDialog.dismiss();
+
 
 //                            Log.d(TAG, "안녕" + img_class + img_name + img_result);
                         } catch (JSONException e) {
@@ -164,8 +166,6 @@ public class Upload extends AppCompatActivity {
                         Log.d(TAG, "test");
 //                        textView.setText(response);
 //                        Toast.makeText(Upload.this, "성공", Toast.LENGTH_SHORT).show();
-                        progressDialog.dismiss();
-
                     }
                 }, new Response.ErrorListener() {
                     @Override
