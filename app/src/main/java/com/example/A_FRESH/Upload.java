@@ -132,7 +132,7 @@ public class Upload extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         Log.d(TAG, "test");
-                        //textView.setText(response);
+//                        textView.setText(response);
 //                        Toast.makeText(Upload.this, "성공", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
 
@@ -145,7 +145,7 @@ public class Upload extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }) {
-                    //adding parameters to send
+//                    adding parameters to send
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> parameters = new HashMap<String, String>();
@@ -176,10 +176,10 @@ public class Upload extends AppCompatActivity {
             Uri filePath = data.getData();
 
             try {
-                //갤러리에서 이미지 가져옴
+//                갤러리에서 이미지 가져옴
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
 
-                //이미지뷰에 이미지 세팅
+//                이미지뷰에 이미지 세팅
                 Glide.with(getApplicationContext()).load(bitmap).into(image);
 //                image.setImageBitmap(bitmap);
             } catch (Exception e) {

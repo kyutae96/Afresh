@@ -1,7 +1,5 @@
 package com.example.A_FRESH;
 
-import static com.android.volley.VolleyLog.TAG;
-
 import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.Context;
@@ -29,7 +27,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
-import com.bumptech.glide.Glide;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
 import java.io.File;
@@ -49,7 +46,7 @@ public class Main2Activity extends AppCompatActivity {
 
     private Uri photoUri;//촬영한, 크롭된 이미지 경로를 담는 변수
     ImageView cropimg, main_layout_img, logo_black, camera_box, result_image;
-    TextView result_text;
+    TextView result_text, version_result_text;
     CameraSurfaceView cameraView;
     FrameLayout previewFrame;
     boolean crop;   //크롭사진이 생성 되었는지 여부
@@ -67,15 +64,14 @@ public class Main2Activity extends AppCompatActivity {
     }
 
 
-
-
     private void init() {
-        cropImageDiretory = "/ALIFE/";//크롭된 사진이 저장될 디렉토리
+        cropImageDiretory = "/AFRESH/";//크롭된 사진이 저장될 디렉토리
         cropimg = (ImageView) findViewById(R.id.cropimg);//크롭된 사진을 넣을 이미지 뷰
         logo_black = (ImageView) findViewById(R.id.logo_black);
         camera_box = (ImageView) findViewById(R.id.camera_box);
         result_image = (ImageView) findViewById(R.id.result_image);
         result_text = (TextView) findViewById(R.id.result_text);
+        version_result_text = (TextView) findViewById(R.id.version_result_text);
         crop = false;
         usingCamera = Camera.CameraInfo.CAMERA_FACING_BACK;//후면 카메라가 기본.
 
@@ -88,8 +84,6 @@ public class Main2Activity extends AppCompatActivity {
         previewFrame = (FrameLayout) findViewById(R.id.previewFrame);   //프레임 뷰에 카메라뷰를 추가
         previewFrame.addView(cameraView);
     }
-
-
 
 
     //현재 보여지는 미리보기 화면을 촬영
@@ -141,13 +135,17 @@ public class Main2Activity extends AppCompatActivity {
                     cropimg.setVisibility(View.VISIBLE);
                     logo_black.setVisibility(View.VISIBLE);
                     result_image.setVisibility(View.VISIBLE);
-                    result_text.setVisibility(View.VISIBLE);
                     camera_box.setVisibility(View.INVISIBLE);
                     cameraView.setVisibility(View.INVISIBLE);
 
                     // 아래 부분 주석을 풀 경우 사진 촬영 후에도 다시 프리뷰를 돌릴수 있음
 //                    camera.startPreview();
+                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                        version_result_text.setVisibility(View.VISIBLE);
+                    }else{
+                        result_text.setVisibility(View.VISIBLE);
 
+                    }
 
                 } catch (Exception e) {
                     Log.e("SampleCapture", "Failed to insert image.", e);
@@ -164,120 +162,116 @@ public class Main2Activity extends AppCompatActivity {
         File storageDir = new File(Environment.getExternalStorageDirectory() + cropImageDiretory);
 
         if (!storageDir.exists()) {
-            Log.i("mCurrentPhotoPath1", storageDir.toString());
             storageDir.mkdirs();
         }
-
-        File image = new File(storageDir, imageFileName);
+        File image = File.createTempFile(imageFileName, ".png", storageDir);
+//        File image = new File(storageDir, imageFileName);
         mCurrentPhotoPath = "file:" + image.getAbsolutePath();
 
         return image;
 
-
-//        String imageFileName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());                    //파일명
-//        File storageDir = new File(Environment.getExternalStorageDirectory() + cropImageDiretory);//내장메모리/폴더명 에 저장
-//        if (!storageDir.exists()) {
-//            storageDir.mkdirs();
-//        }
-//        File image = File.createTempFile(imageFileName, ".png", storageDir);
-//        mCurrentPhotoPath = "file:" + image.getAbsolutePath();  //절대경로로 URI 작성, 저장
-//        return image;
     }
 
     //이미지 크롭 함수.
     //photoUri 의 경로에 있는 사진 파일을 정사각형 모양으로 크롭, 저장하고 photoUri에 경로를 담는다.
     public void cropImage() {
         Log.i("cropImage", "Call");
-        Log.i("cropImage", "photoURI : " + photoUri );
+        Log.i("cropImage", "photoURI : " + photoUri);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            Intent cropIntent = new Intent("com.android.camera.action.CROP");
 
-        Intent cropIntent = new Intent("com.android.camera.action.CROP");
-
-        // 50x50픽셀미만은 편집할 수 없다는 문구 처리 + 갤러리, 포토 둘다 호환하는 방법
-        cropIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        cropIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        cropIntent.setDataAndType(photoUri, "image/*");
-        //cropIntent.putExtra("outputX", 200); // crop한 이미지의 x축 크기, 결과물의 크기
-        //cropIntent.putExtra("outputY", 200); // crop한 이미지의 y축 크기
-        cropIntent.putExtra("aspectX", 1); // crop 박스의 x축 비율, 1&1이면 정사각형
-        cropIntent.putExtra("aspectY", 1); // crop 박스의 y축 비율
-        cropIntent.putExtra("scale", true);
-        cropIntent.putExtra("output", photoUri); // 크랍된 이미지를 해당 경로에 저장
-        cropIntent.putExtra("return-data", false);
-        cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-        cropIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+            // 50x50픽셀미만은 편집할 수 없다는 문구 처리 + 갤러리, 포토 둘다 호환하는 방법
+            cropIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            cropIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            cropIntent.setDataAndType(photoUri, "image/*");
+            //cropIntent.putExtra("outputX", 200); // crop한 이미지의 x축 크기, 결과물의 크기
+            //cropIntent.putExtra("outputY", 200); // crop한 이미지의 y축 크기
+            cropIntent.putExtra("aspectX", 1); // crop 박스의 x축 비율, 1&1이면 정사각형
+            cropIntent.putExtra("aspectY", 1); // crop 박스의 y축 비율
+            cropIntent.putExtra("scale", true);
+            cropIntent.putExtra("output", photoUri); // 크랍된 이미지를 해당 경로에 저장
+            cropIntent.putExtra("return-data", false);
+            cropIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+            cropIntent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 //        cropIntent.putExtra("outputFormat", Glide.with(this).load(photoUri).override(100).toString());
-        startActivityForResult(cropIntent, CROP_FROM_IMAGE);
+            startActivityForResult(cropIntent, CROP_FROM_IMAGE);
+        } else {
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            this.grantUriPermission("com.android.camera", photoUri,
-//                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        }
-//        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setDataAndType(photoUri, "image/*");
-//
-//        List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, 0);
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//            grantUriPermission(list.get(0).activityInfo.packageName, photoUri,
-//                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        }
-//        int size = list.size();
-//        if (size == 0) {
-//            Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
-//            return;
-//        } else {
-////            Toast.makeText(this, "용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.", Toast.LENGTH_SHORT).show();
-//            FancyToast.makeText(this,"용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
-//
-//            progressDialog.setMessage("용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다. \n 바로 결과 확인을 원하시면 아래 '판별해요' 버튼을 눌러주세요!!");
-//            progressDialog.show();
-//
+            Toast.makeText(this,"핸드폰 버전이 낮아 일반카메라로 소고기 촬영 후 판별하기 버튼으로 결과를 확인해보세요.", Toast.LENGTH_SHORT).show();
 //            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//            }
-//            intent.putExtra("crop", "true");
-//            intent.putExtra("aspectX", 1);
-//            intent.putExtra("aspectY", 1);
-//            intent.putExtra("scale", true);
-//            File croppedFileName = null;
-//            try {
-//                croppedFileName = createImageFile();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//
-//            File folder = new File(Environment.getExternalStorageDirectory() + cropImageDiretory);
-//            File tempFile = new File(folder.toString(), croppedFileName.getName());
-//
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//sdk 24 이상, 누가(7.0)
-//                photoUri = FileProvider.getUriForFile(getApplicationContext(),// 7.0에서 바뀐 부분은 여기다.
-//                        BuildConfig.APPLICATION_ID + ".provider", tempFile);
-//            } else {//sdk 23 이하, 7.0 미만
-//                photoUri = Uri.fromFile(tempFile);
-//            }
-//
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//            }
-//
-//            intent.putExtra("return-data", false);
-//            intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-//            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-//
-//            Intent i = new Intent(intent);
-//            ResolveInfo res = list.get(0);
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-//                i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//                i.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//
-//                grantUriPermission(res.activityInfo.packageName, photoUri,
+//                this.grantUriPermission("com.android.camera", photoUri,
 //                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //            }
-//            i.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
-//            startActivityForResult(i, CROP_FROM_IMAGE);
-//            progressDialog.dismiss();
-//        }
+//            Intent intent = new Intent("com.android.camera.action.CROP");
+//            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            intent.setDataAndType(photoUri, "image/*");
+//
+//            List<ResolveInfo> list = getPackageManager().queryIntentActivities(intent, 0);
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                grantUriPermission(list.get(0).activityInfo.packageName, photoUri,
+//                        Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//            }
+//            int size = list.size();
+//            if (size == 0) {
+//                Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
+//                return;
+//            } else {
+////            Toast.makeText(this, "용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.", Toast.LENGTH_SHORT).show();
+//                FancyToast.makeText(this, "용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다.", FancyToast.LENGTH_SHORT, FancyToast.ERROR, R.drawable.cutecow, false).show();
+//
+//                progressDialog.setMessage("용량이 큰 사진의 경우 시간이 오래 걸릴 수 있습니다. \n 바로 결과 확인을 원하시면 아래 '판별해요' 버튼을 눌러주세요!!");
+//                progressDialog.show();
+//
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                }
+//                intent.putExtra("crop", "true");
+//                intent.putExtra("aspectX", 1);
+//                intent.putExtra("aspectY", 1);
+//                intent.putExtra("scale", true);
+//                intent.putExtra("output", photoUri);
+//                File croppedFileName = null;
+//                try {
+//                    croppedFileName = createImageFile();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//
+//                File folder = new File(Environment.getExternalStorageDirectory() + cropImageDiretory);
+//                File tempFile = new File(folder.toString(), croppedFileName.getName());
+//
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//sdk 24 이상, 누가(7.0)
+//                    photoUri = FileProvider.getUriForFile(getApplicationContext(),// 7.0에서 바뀐 부분은 여기다.
+//                            BuildConfig.APPLICATION_ID + ".provider", tempFile);
+//                } else {//sdk 23 이하, 7.0 미만
+//                    photoUri = Uri.fromFile(tempFile);
+//                }
+//
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                    intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                }
+//
+//                intent.putExtra("return-data", false);
+//                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+//                intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//
+//                Intent i = new Intent(intent);
+//                ResolveInfo res = list.get(0);
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+//                    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                    i.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//
+//                    grantUriPermission(res.activityInfo.packageName, photoUri,
+//                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                }
+//                i.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+//                startActivityForResult(i, CROP_FROM_IMAGE);
+//                progressDialog.dismiss();
+//            }
+        }
     }
 
 
@@ -309,9 +303,16 @@ public class Main2Activity extends AppCompatActivity {
             cropimg.setVisibility(View.VISIBLE);
             logo_black.setVisibility(View.VISIBLE);
             result_image.setVisibility(View.VISIBLE);
-            result_text.setVisibility(View.VISIBLE);
             camera_box.setVisibility(View.INVISIBLE);
             cameraView.setVisibility(View.INVISIBLE);
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+                version_result_text.setVisibility(View.VISIBLE);
+            }else{
+                result_text.setVisibility(View.VISIBLE);
+
+            }
+
+
         }
     }
 
@@ -384,24 +385,23 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
-    public void btn_think(View view){
+    public void btn_think(View view) {
         Intent intent = new Intent(this, Upload.class);
         startActivity(intent);
         finish();
     }
 
-    public void btn_guide2(View view){
+    public void btn_guide2(View view) {
         Intent intent = new Intent(this, CameraGuide2.class);
         startActivity(intent);
         finish();
     }
 
-    public void user_button(View view){
+    public void user_button(View view) {
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
     }
-
 
 
     @Override
@@ -410,14 +410,13 @@ public class Main2Activity extends AppCompatActivity {
         long gapTime = curTime - backBtnTime;
 
 
-        if(0 <= gapTime && 2000 >= gapTime) {
+        if (0 <= gapTime && 2000 >= gapTime) {
             super.onBackPressed();
 
-        }
-        else {
+        } else {
             backBtnTime = curTime;
 //            Toast.makeText(this, "한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
-            FancyToast.makeText(this,"한번 더 누르면 종료됩니다.",FancyToast.LENGTH_SHORT,FancyToast.ERROR,R.drawable.cutecow,false).show();
+            FancyToast.makeText(this, "한번 더 누르면 종료됩니다.", FancyToast.LENGTH_SHORT, FancyToast.ERROR, R.drawable.cutecow, false).show();
 
         }
     }

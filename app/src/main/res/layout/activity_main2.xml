@@ -123,6 +123,23 @@
 
 
 
+        <TextView
+            android:id="@+id/version_result_text"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:fontFamily="@font/bold"
+            android:gravity="center"
+            android:text="핸드폰 버전이 낮아 일반카메라로 소고기 촬영 후\n판별하기 버튼으로 결과를 확인해보세요."
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toTopOf="@+id/guideline81"
+            app:layout_constraintEnd_toStartOf="@+id/guideline82"
+            app:layout_constraintStart_toStartOf="@+id/result_image"
+            app:layout_constraintTop_toTopOf="@+id/guideline73" />
+
+
+
 
         <ImageView
             android:id="@+id/camera_box"
