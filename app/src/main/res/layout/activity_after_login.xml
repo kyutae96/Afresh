@@ -48,7 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.89" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
@@ -200,7 +200,10 @@
         android:id="@+id/btnLogout"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:alpha="0"
+        android:text="로그아웃"
+        android:textColor="@color/black"
+        android:backgroundTint="#FFD600"
+        android:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toTopOf="@+id/guideline67"
         app:layout_constraintEnd_toStartOf="@+id/guideline24"
         app:layout_constraintHorizontal_bias="0.95"
@@ -214,8 +217,11 @@
         android:id="@+id/btnNext"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:alpha="0"
         android:onClick="btnNext"
+        android:text="시작하기"
+        android:textColor="@color/black"
+        android:backgroundTint="#FFD600"
+        android:fontFamily="sans-serif-black"
         app:layout_constraintBottom_toTopOf="@+id/guideline67"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintHorizontal_bias="0.05"
@@ -225,33 +231,33 @@
         app:layout_constraintTop_toTopOf="@+id/guideline68"
         app:layout_constraintVertical_bias="0.86" />
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_login"
-        app:layout_constraintBottom_toTopOf="@+id/guideline67"
-        app:layout_constraintEnd_toStartOf="@+id/guideline26"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline27"
-        app:layout_constraintTop_toTopOf="@+id/guideline68"
-        app:layout_constraintVertical_bias="0.86" />
+<!--    <ImageView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:src="@drawable/img_login"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline67"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline26"-->
+<!--        app:layout_constraintHorizontal_bias="0.05"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline27"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline68"-->
+<!--        app:layout_constraintVertical_bias="0.86" />-->
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/img_logout"
-        app:layout_constraintBottom_toTopOf="@+id/guideline67"
-        app:layout_constraintEnd_toStartOf="@+id/guideline24"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline68"
-        app:layout_constraintVertical_bias="0.86" />
+<!--    <ImageView-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:scaleType="fitCenter"-->
+<!--        android:src="@drawable/img_logout"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline67"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline24"-->
+<!--        app:layout_constraintHorizontal_bias="0.95"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline16"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline68"-->
+<!--        app:layout_constraintVertical_bias="0.86" />-->
 
     <ImageView
         android:layout_width="0dp"

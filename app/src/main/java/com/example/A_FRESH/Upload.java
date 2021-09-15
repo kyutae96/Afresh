@@ -42,7 +42,7 @@ public class Upload extends AppCompatActivity {
     private TextView name_text;
     private String img_class;
     private String img_name;
-    private String img_result;
+    private String eng_name;
     private Uri photoUri;
     private static final int CROP_FROM_IMAGE = 2;
     ImageView image;
@@ -112,7 +112,37 @@ public class Upload extends AppCompatActivity {
 //                            image.setImageBitmap(bm);
                             Glide.with(getApplicationContext()).load(bm).into(image);
                             class_text.setText(img_class);
-                            name_text.setText(img_name);
+//                            name_text.setText(img_name);
+
+
+                            switch (img_name){
+                                case "ansim" :
+                                    name_text.setText("안심");
+                                    break;
+                                case "chaeggeut" :
+                                    name_text.setText("채끝");
+                                    break;
+                                case "deungsim" :
+                                    name_text.setText("등심");
+                                    break;
+                                case "samgak" :
+                                    name_text.setText("삼각살");
+                                    break;
+                                case "boochae" :
+                                    name_text.setText("부채살");
+                                    break;
+                                case "chima" :
+                                    name_text.setText("치마살");
+                                    break;
+                                case "galbi" :
+                                    name_text.setText("갈비");
+                                    break;
+                                case "ubgin" :
+                                    name_text.setText("업진살");
+                                    break;
+
+                            }
+
 
                             if (img_name == "null"){
                                 name_text.setText("-");
@@ -126,7 +156,7 @@ public class Upload extends AppCompatActivity {
                             }
 
 
-                            Log.d(TAG, "안녕" + img_class + img_name + img_result);
+//                            Log.d(TAG, "안녕" + img_class + img_name + img_result);
                         } catch (JSONException e) {
                             Log.d(TAG, "안녕에러" + e);
                             e.printStackTrace();

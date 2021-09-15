@@ -128,6 +128,7 @@
         android:gravity="center"
         android:text="갤러리에서 사진을 선택 후 업로드 버튼으로 결과를 확인해 주세요."
         android:textSize="11sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline75"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -137,12 +138,16 @@
         android:id="@+id/choose"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:backgroundTint="#FFD600"
+        android:fontFamily="sans-serif-black"
         android:text="앨범"
-        android:alpha="0"
+        android:textColor="@color/black"
+        android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline70"
         app:layout_constraintEnd_toStartOf="@+id/guideline66"
         app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline65" />
+        app:layout_constraintTop_toTopOf="@+id/guideline65"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
     <Button
@@ -150,7 +155,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="업로드"
-        android:alpha="0"
+        android:textSize="13sp"
+        android:backgroundTint="#FFD600"
+        android:textColor="@color/black"
+        android:fontFamily="sans-serif-black"
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline70"
         app:layout_constraintEnd_toStartOf="@+id/guideline74"
@@ -158,29 +166,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline69"
         app:layout_constraintTop_toTopOf="@+id/guideline65"
         app:layout_constraintVertical_bias="0.0" />
-
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/upload_img"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline70"
-        app:layout_constraintEnd_toStartOf="@+id/guideline74"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline69"
-        app:layout_constraintTop_toTopOf="@+id/guideline65"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:src="@drawable/album_img"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/guideline70"
-        app:layout_constraintEnd_toStartOf="@+id/guideline66"
-        app:layout_constraintStart_toStartOf="@+id/guideline37"
-        app:layout_constraintTop_toTopOf="@+id/guideline65" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -244,7 +229,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.96" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -273,46 +258,23 @@
         android:fontFamily="@font/bold"
         android:gravity="center"
         android:text="등급"
+        android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline79"
         app:layout_constraintEnd_toStartOf="@+id/guideline83"
         app:layout_constraintStart_toStartOf="@+id/guideline37"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/result_show"
-        app:layout_constraintBottom_toTopOf="@+id/guideline79"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline83"
-        app:layout_constraintTop_toTopOf="@+id/guideline4"
-        app:layout_constraintVertical_bias="1.0" />
-
-    <ImageView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/result_show"
-        app:layout_constraintBottom_toTopOf="@+id/guideline79"
-        app:layout_constraintEnd_toStartOf="@+id/guideline74"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline69"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <TextView
         android:id="@+id/class_text"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fontFamily="@font/bold"
         android:gravity="center"
         android:text=" "
+        android:textColor="@color/black"
+        android:background="#eeeeee"
         app:layout_constraintBottom_toTopOf="@+id/guideline79"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -328,6 +290,7 @@
         android:fontFamily="@font/bold"
         android:gravity="center"
         android:text="부위"
+        android:textColor="@color/black"
         android:textSize="13sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline79"
         app:layout_constraintEnd_toStartOf="@+id/guideline69"
@@ -339,9 +302,10 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fontFamily="@font/bold"
         android:gravity="center"
         android:text=""
+        android:textColor="@color/black"
+        android:background="#eeeeee"
         app:layout_constraintBottom_toTopOf="@+id/guideline79"
         app:layout_constraintEnd_toStartOf="@+id/guideline74"
         app:layout_constraintLeft_toLeftOf="parent"

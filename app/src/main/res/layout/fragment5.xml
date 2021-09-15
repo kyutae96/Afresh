@@ -176,21 +176,17 @@
             android:id="@+id/button4"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:alpha="0"
             android:onClick="toMain"
+            android:text="시작하기"
+            android:textColor="@color/black"
+            android:backgroundTint="#FFD600"
+            android:fontFamily="sans-serif-black"
             app:layout_constraintBottom_toTopOf="@+id/guideline52"
             app:layout_constraintEnd_toStartOf="@+id/guideline54"
             app:layout_constraintStart_toStartOf="@+id/guideline55"
             app:layout_constraintTop_toTopOf="@+id/guideline10" />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:src="@drawable/start_yellow"
-            app:layout_constraintBottom_toTopOf="@+id/guideline52"
-            app:layout_constraintEnd_toStartOf="@+id/guideline54"
-            app:layout_constraintStart_toStartOf="@+id/guideline55"
-            app:layout_constraintTop_toTopOf="@+id/guideline10" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
