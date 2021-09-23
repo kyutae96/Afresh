@@ -20,6 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <Button
         android:id="@+id/tutorialid"
         android:layout_width="0dp"
@@ -31,10 +32,10 @@
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline64"
         app:layout_constraintEnd_toStartOf="@+id/guideline44"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline30"
-        app:layout_constraintTop_toTopOf="@+id/guideline57" />
-
-
+        app:layout_constraintTop_toTopOf="@+id/guideline84"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView5"
@@ -43,12 +44,29 @@
         android:fontFamily="@font/bold"
         android:gravity="center_vertical"
         android:text=" 한우 등급 판별을 위한 \n 촬영가이드"
-        android:textSize="30sp"
         android:textColor="@color/black"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline41"
-        app:layout_constraintEnd_toStartOf="@+id/guideline44"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline42"
         app:layout_constraintTop_toTopOf="@+id/guideline33" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/bold"
+        android:gravity="left"
+        android:text="1. 한우 판별을 위해서는 위에서 고기 마블링 부분이 잘 나오게 찍어주세요
+        \n2. 그림자 혹은 한우 외 다른 물체가 사진상에 겹치지 않게 촬영해 주세요.
+\n3. 판별하기에서는 한우 사진만 나오게 해주세요.
+\n4. 위의 과정이 충족되지 않을 시 정확한 결과가 나오지 않을 수 있습니다."
+        android:textColor="@color/black"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline57"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline42"
+        app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
 
     <TextView
@@ -56,10 +74,10 @@
         android:layout_height="0dp"
         android:fontFamily="@font/bold"
         android:text=" 촬영 전 준비해주세요"
-        android:textSize="20sp"
         android:textColor="@color/black"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline43"
-        app:layout_constraintEnd_toStartOf="@+id/guideline44"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline42"
         app:layout_constraintTop_toTopOf="@+id/guideline41"
@@ -67,19 +85,17 @@
 
     <CheckBox
         android:id="@+id/checklist"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:fontFamily="@font/bold"
-        android:text=" 한우 판별을 위한 사진 촬영은 \n 고기의 마블링 부분이 잘 나오게 찍어주세요"
-        android:textSize="15sp"
-        android:textColor="@color/black"
         android:onClick="checklist"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline44"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text=" 한우 판별을 위한 사진 촬영은 \n 고기의 마블링 부분이 잘 나오게 찍어주세요"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline84"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline42"
-        app:layout_constraintTop_toTopOf="@+id/guideline43"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/guideline57" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline33"
@@ -114,7 +130,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.77" />
+        app:layout_constraintGuide_percent="0.95" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline84"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline43"
