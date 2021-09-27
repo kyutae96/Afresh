@@ -140,6 +140,7 @@
         android:layout_height="0dp"
         android:backgroundTint="#FFD600"
         android:fontFamily="sans-serif-black"
+        android:onClick="choose"
         android:text="앨범"
         android:textColor="@color/black"
         android:textSize="13sp"

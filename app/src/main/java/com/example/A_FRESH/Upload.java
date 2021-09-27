@@ -1,14 +1,13 @@
 package com.example.A_FRESH;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -49,7 +48,7 @@ public class Upload extends AppCompatActivity {
     Button choose, upload;
     int PICK_IMAGE_REQUEST = 111;
     String URL = "http://52.78.70.39:5000/image";
-    Bitmap bitmap;
+    Bitmap bitmap, imgIntent;
     ProgressDialog progressDialog;
 
     @Override
@@ -64,18 +63,25 @@ public class Upload extends AppCompatActivity {
         name_text = findViewById(R.id.name_text);
 
 
+        //intent로 받은 이미지 판별하기 버튼에 적용안됨
+        Intent imgIntent = getIntent();
+        Uri intentImg = imgIntent.getParcelableExtra("output");
+        Log.d("이미지테스트", intentImg.toString());
+        image.setImageURI(intentImg);
+        //---------------------
+
         Bitmap bm = BitmapFactory.decodeStream(null);
 
         //opening image chooser option
-        choose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_PICK);
-                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
-            }
-        });
+//        choose.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent();
+//                intent.setType("image/*");
+//                intent.setAction(Intent.ACTION_PICK);
+//                startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+//            }
+//        });
 
         upload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +95,6 @@ public class Upload extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
                 byte[] imageBytes = baos.toByteArray();
                 final String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
 
 
                 Map<String, String> params = new HashMap<String, String>();
@@ -114,37 +119,36 @@ public class Upload extends AppCompatActivity {
                             class_text.setText(img_class);
 //                            name_text.setText(img_name);
 
-
-                            switch (img_name){
-                                case "ansim" :
+                            switch (img_name) {
+                                case "ansim":
                                     name_text.setText("안심");
                                     break;
-                                case "chaeggeut" :
+                                case "chaeggeut":
                                     name_text.setText("채끝");
                                     break;
-                                case "deungsim" :
+                                case "deungsim":
                                     name_text.setText("등심");
                                     break;
-                                case "samgak" :
+                                case "samgak":
                                     name_text.setText("삼각살");
                                     break;
-                                case "boochae" :
+                                case "boochae":
                                     name_text.setText("부채살");
                                     break;
-                                case "chima" :
+                                case "chima":
                                     name_text.setText("치마살");
                                     break;
-                                case "galbi" :
+                                case "galbi":
                                     name_text.setText("갈비");
                                     break;
-                                case "ubgin" :
+                                case "ubgin":
                                     name_text.setText("업진살");
                                     break;
 
                             }
 
 
-                            if (img_name == "null"){
+                            if (img_name == "null") {
                                 name_text.setText("-");
                                 class_text.setText("-");
 //                                Toast.makeText(getApplicationContext(), "실패", Toast.LENGTH_SHORT).show();
@@ -175,7 +179,7 @@ public class Upload extends AppCompatActivity {
                         startActivity(intent);
                     }
                 }) {
-//                    adding parameters to send
+                    //                    adding parameters to send
                     @Override
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> parameters = new HashMap<String, String>();
@@ -198,6 +202,34 @@ public class Upload extends AppCompatActivity {
 
     }
 
+    public void choose(View view) {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_PICK);
+        startActivityForResult(Intent.createChooser(intent, "Select Image"), PICK_IMAGE_REQUEST);
+    }
+
+
+//    public class BitmapConverter {
+//        public Bitmap StringToBitmap(String encodedString) {
+//            try {
+//                byte[] encodeByte = Base64.decode(encodedString, Base64.DEFAULT);
+//                Bitmap bitmap = BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+//                return bitmap;
+//            } catch (Exception e) {
+//                e.getMessage();
+//                return null;
+//            }
+//        }
+//    }
+
+//    private Uri getImageUri(Context context, Bitmap inImage){
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+//        String path = MediaStore.Images.Media.insertImage(context.getContentResolver(), inImage, "Title", null);
+//        return Uri.parse(path);
+//    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -208,7 +240,6 @@ public class Upload extends AppCompatActivity {
             try {
 //                갤러리에서 이미지 가져옴
                 bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
-
 //                이미지뷰에 이미지 세팅
                 Glide.with(getApplicationContext()).load(bitmap).into(image);
 //                image.setImageBitmap(bitmap);
@@ -219,12 +250,12 @@ public class Upload extends AppCompatActivity {
     }
 
 
-
     @Override
     public void onBackPressed() {
         Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
         finish();
     }
+
 
 }

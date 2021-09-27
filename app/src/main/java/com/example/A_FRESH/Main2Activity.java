@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.media.MediaScannerConnection;
@@ -29,6 +30,7 @@ import androidx.core.content.FileProvider;
 
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -151,7 +153,6 @@ public class Main2Activity extends AppCompatActivity {
                 } catch (Exception e) {
                     Log.e("SampleCapture", "Failed to insert image.", e);
                 }
-
             }
         });
     }
@@ -166,9 +167,9 @@ public class Main2Activity extends AppCompatActivity {
             storageDir.mkdirs();
         }
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            File image = File.createTempFile(imageFileName, ".png", storageDir);
-            mCurrentPhotoPath = "file:" + image.getAbsolutePath();
-            return image;
+        File image = File.createTempFile(imageFileName, ".png", storageDir);
+        mCurrentPhotoPath = "file:" + image.getAbsolutePath();
+        return image;
 //
 //        } else {
 //            File image = new File(storageDir, imageFileName);
@@ -194,6 +195,7 @@ public class Main2Activity extends AppCompatActivity {
             cropIntent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             cropIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             cropIntent.setDataAndType(photoUri, "image/*");
+
             //cropIntent.putExtra("outputX", 200); // crop한 이미지의 x축 크기, 결과물의 크기
             //cropIntent.putExtra("outputY", 200); // crop한 이미지의 y축 크기
             cropIntent.putExtra("aspectX", 1); // crop 박스의 x축 비율, 1&1이면 정사각형
@@ -241,7 +243,6 @@ public class Main2Activity extends AppCompatActivity {
                 intent.putExtra("aspectX", 1);
                 intent.putExtra("aspectY", 1);
                 intent.putExtra("scale", true);
-//                intent.putExtra("output", photoUri);
                 File croppedFileName = null;
                 try {
                     croppedFileName = createImageFile(null);
@@ -285,7 +286,6 @@ public class Main2Activity extends AppCompatActivity {
             }
         }
     }
-
 
 
     //사진 크롭이나 앨범에서 사진 가져오는것의 결과 처리함수.
@@ -398,8 +398,10 @@ public class Main2Activity extends AppCompatActivity {
 
     }
 
+
     public void btn_think(View view) {
         Intent intent = new Intent(this, Upload.class);
+        intent.putExtra("output", photoUri);
         startActivity(intent);
         finish();
     }
