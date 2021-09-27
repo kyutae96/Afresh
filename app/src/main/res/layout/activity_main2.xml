@@ -129,7 +129,7 @@
             android:layout_height="0dp"
             android:fontFamily="@font/bold"
             android:gravity="center"
-            android:text="핸드폰 버전이 낮아 일반카메라로 소고기 촬영 후\n판별하기 버튼으로 결과를 확인해보세요."
+            android:text="크롭된 사진은 갤러리에 저장되었습니다.\n[판별해요] 버튼을 통해 결과를 확인할 수 있습니다!!"
             android:textColor="@color/white"
             android:textSize="12sp"
             android:visibility="invisible"
