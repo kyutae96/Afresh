@@ -1,6 +1,7 @@
 package com.example.A_FRESH;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -27,14 +28,18 @@ import java.security.MessageDigest;
 public class LoginActivity extends AppCompatActivity {
     private long backBtnTime = 0;
     private SessionCallback sessionCallback;
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
         sessionCallback = new SessionCallback();
         Session.getCurrentSession().addCallback(sessionCallback);
         Session.getCurrentSession().checkAndImplicitOpen();
         getAppKeyHash();
+
 
 
     }

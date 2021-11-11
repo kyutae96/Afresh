@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class Main2Activity extends AppCompatActivity {
     TextView result_text, version_result_text;
     CameraSurfaceView cameraView;
     FrameLayout previewFrame;
+    Button btncamera;
     boolean crop;   //크롭사진이 생성 되었는지 여부
     int usingCamera;//전면, 후면 중 어떤 카메라를 쓰고있는가 여부. Camera.CameraInfo.CAMERA_FACING_BACK, CAMERA_FACING_FRONT
     ProgressDialog progressDialog;
@@ -60,6 +62,8 @@ public class Main2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+
+        btncamera = findViewById(R.id.btncamera);
 
         progressDialog = new ProgressDialog(this);
 
@@ -401,7 +405,11 @@ public class Main2Activity extends AppCompatActivity {
 
     public void btn_think(View view) {
         Intent intent = new Intent(this, Upload.class);
-        intent.putExtra("output", photoUri);
+//        사진촬영 클릭 안하고 바로 판별해요 버튼 누르면 튕김
+        if (intent.putExtra("output", photoUri) == null){
+            startActivity(intent);
+            finish();
+        }
         startActivity(intent);
         finish();
     }

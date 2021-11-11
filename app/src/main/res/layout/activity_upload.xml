@@ -103,22 +103,22 @@
         android:id="@+id/image"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/image_result"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline80" />
-
-
-    <ImageView
-        android:id="@+id/image_result"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline78"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.517"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline80"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="@+id/qwer" />
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/image_result"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="0dp"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline78"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintHorizontal_bias="0.517"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline80"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
 
     <TextView
         android:id="@+id/textView4"
@@ -155,6 +155,7 @@
         android:id="@+id/upload"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:onClick="upload"
         android:text="업로드"
         android:textSize="13sp"
         android:backgroundTint="#FFD600"
@@ -166,8 +167,23 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline69"
         app:layout_constraintTop_toTopOf="@+id/guideline65"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0"
+        tools:ignore="OnClick" />
 
+
+    <Button
+        android:id="@+id/info_upload_error"
+        android:layout_width="180dp"
+        android:layout_height="80dp"
+        android:text="결과가 안나왔나요?"
+        android:backgroundTint="#123456"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline80"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"

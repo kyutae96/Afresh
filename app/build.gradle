@@ -10,8 +10,8 @@ android {
         applicationId "com.A_FRESH"
         minSdkVersion 21
         targetSdkVersion 30
-        versionCode 9
-        versionName "3.4.8"
+        versionCode 11
+        versionName "4.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
